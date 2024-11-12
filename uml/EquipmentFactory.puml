@@ -1,0 +1,58 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface EquipmentFactory{
+    +{abstract}createEquipment():BaseEquipment;
+}
+class BombFactory{
+    +createEquipment():BaseEquipment;
+}
+class FireFactory{
+    +createEquipment():BaseEquipment;
+}
+class FirePlusFactory{
+    +createEquipment():BaseEquipment;
+}
+class HpFactory{
+    +createEquipment():BaseEquipment;
+}
+abstract class BaseEquipment{
+    +BaseEquipment(int locationX, int locationY, int speedX, int speedY)
+    +forward():void
+    +{abstract}active(HeroAircraft heroAircraft):void
+}
+class BombEquipment{
+    - bombObservers：List<BombObserver>
+    + BombEquipment(int locationX, int locationY, int speedX, int speedY)
+    + addObserver(BombObserver bombObserver):void
+    + removeObserver(BombObserver bombObserver):void
+    + active(HeroAircraft heroAircraft):void
+}
+class FireEquipment{
+    + FireEquipment(int locationX, int locationY, int speedX, int speedY)
+    + active(HeroAircraft heroAircraft):void
+}
+class FirePlusEquipment{
+    + FirePlusEquipment(int locationX, int locationY, int speedX, int speedY)
+    + active(HeroAircraft heroAircraft):void
+}
+class HpEquipment{
+    + HpEquipment(int locationX, int locationY, int speedX, int speedY)
+    + active(HeroAircraft heroAircraft):void
+}
+EquipmentFactory ..> BaseEquipment
+EquipmentFactory <|.left. BombFactory
+EquipmentFactory <|.. FireFactory
+EquipmentFactory <|.. FirePlusFactory
+EquipmentFactory <|.right. HpFactory
+
+BombFactory..> BombEquipment
+FireFactory..> FireEquipment
+FirePlusFactory..> FirePlusEquipment
+HpFactory..> HpEquipment
+
+BaseEquipment <|-- BombEquipment
+BaseEquipment <|-- FireEquipment
+BaseEquipment <|-- FirePlusEquipment
+BaseEquipment <|-- HpEquipment
+@enduml

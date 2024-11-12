@@ -1,0 +1,94 @@
+@startuml
+
+abstract class Game{
+    - backGroundTop:int
+    - executorService:ScheduledExecutorService
+    - timeInterval:int
+    - heroAircraft:HeroAircraft
+    - enemyAircrafts:List<AbstractAircraft>
+    - heroBullets:List<BaseBullet>
+    - enemyBullets:List<BaseBullet>
+    - equipments:List<BaseEquipment>
+    - bossNotValid:boolean
+    - playerName:String
+    - score:int
+    - time:int
+    - cycleDuration:int
+    - cycleTime:int
+    - gameOverFlag:boolean
+    # backgroundMusic:MusicThread
+    # backgroundMusicWithBoss:MusicThread
+    + ifMusicOn:boolean
+    - mode:String
+    - backgroundImage:Image
+    - enemyMaxNumber:int
+    + Game():void
+    + action():void
+    - timeCountAndNewCycleJudge():boolean
+    - shootAction():void
+    - bulletsMoveAction():void
+    - equipmentMoveAction():void
+    - aircraftsMoveAction():void
+    - crashCheckAction():void
+    - postProcessAction():void
+    - paint(Graphics g):void
+    - paintImageWithPositionRevised(Graphics g, List<? extends AbstractFlyingObject> objects):void
+    - paintScoreAndLife(Graphics g):void
+    + {abstract}createMobEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + {abstract}createEliteEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + {abstract}createElitePlusEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + {abstract}createBossEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + {abstract}setMode():String
+    + {abstract}setEnemyMaxNumber():int
+    + {abstract}setBackgroundImage():Image
+    + {abstract}setCycleDuration():int
+}
+
+class EasyGame{
+    - enemyPower:int
+    - enemySpeedY:int
+    - enemyHp:int
+    + EasyGame():void
+    + createMobEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + createEliteEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + createElitePlusEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + createBossEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + setMode():String
+    + setEnemyMaxNumber():int
+    + setBackgroundImage():Image
+    + setCycleDuration():int
+}
+class CommonGame{
+    - createdBossNum:int
+    - enemyPower:int
+    - enemySpeedY:int
+    - enemyHp:int
+    + CommonGame():void
+    + createMobEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + createEliteEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + createElitePlusEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + createBossEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + setMode():String
+    + setEnemyMaxNumber():int
+    + setBackgroundImage():Image
+    + setCycleDuration():int
+}
+class DifficultGame{
+    - createdBossNum:int
+    - enemyPower:int
+    - enemySpeedY:int
+    - enemyHp:int
+    + DifficultGame():void
+    + createMobEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + createEliteEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + createElitePlusEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + createBossEnemy(List<AbstractAircraft> enemyAircrafts):List<AbstractAircraft>
+    + setMode():String
+    + setEnemyMaxNumber():int
+    + setBackgroundImage():Image
+    + setCycleDuration():int
+}
+Game <|-r- EasyGame
+Game <|-l- CommonGame
+Game <|-- DifficultGame
+@enduml

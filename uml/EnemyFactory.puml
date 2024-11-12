@@ -1,0 +1,77 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface EnemyFactory{
+    + {abstract}createEnemy(int locationX, int locationY, int speedX, int speedY):Enemy;
+}
+abstract class Enemy{
+    + {abstract}Enemy(int locationX, int locationY, int speedX, int speedY,int hp);
+}
+class MobEnemyFactory{
+    + createEnemy(int locationX, int locationY, int speedX, int speedY):Enemy;
+}
+
+class EliteEnemyFactory{
+    + createEnemy(int locationX, int locationY, int speedX, int speedY):Enemy;
+}
+
+class ElitePlusFactory{
+    + createEnemy(int locationX, int locationY, int speedX, int speedY):Enemy;
+}
+
+class BossEnemyFactory{
+    + createEnemy(int locationX, int locationY, int speedX, int speedY):Enemy;
+}
+
+
+class MobEnemy {
+    + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp):void
+    + shoot():List<BaseBullet>
+    + update():int
+}
+class EliteEnemy{
+    - power:int
+    - direction:int
+
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp):void
+    + getDirection():int
+    + shoot():List<BaseBullet>
+    + update():int
+}
+class ElitePlus{
+    - power:int
+    - direction:int
+
+    + ElitePlus(int locationX, int locationY, int speedX, int speedY, int hp):void
+    + getDirection():int
+    + shoot():List<BaseBullet>
+    + update():int
+}
+
+class BossEnemy{
+    - power:int
+    - direction:int
+
+    + BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp):void
+    + getDirection():int
+    + shoot():List<BaseBullet>
+    + update():int
+}
+EnemyFactory ..> Enemy
+
+EnemyFactory <|.. MobEnemyFactory
+EnemyFactory <|.. EliteEnemyFactory
+EnemyFactory <|.. ElitePlusFactory
+EnemyFactory <|.. BossEnemyFactory
+
+
+MobEnemyFactory..> MobEnemy
+EliteEnemyFactory..> EliteEnemy
+ElitePlusFactory ..> ElitePlus
+BossEnemyFactory ..>BossEnemy
+
+Enemy <|.. MobEnemy
+Enemy <|.. EliteEnemy
+EliteEnemy <|-r- ElitePlus
+Enemy <|.. BossEnemy
+@enduml

@@ -1,0 +1,71 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Game{
+    - enemyBullets:List<BaseBullet>
+    - enemyAircrafts:List<AbstractAircraft>
+    - equipments:List<BaseEquipment>
+    - crashCheckAction():void;
+
+}
+class BombEquipment{
+    - observers:Observer[];
+    + BombEquipment(int locationX, int locationY, int speedX, int speedY)
+    + registerObserver(Observer observer):void;
+    + removeObserver(Observer observer):void;
+    + active(HeroAircraft heroAircraft):void
+    'active = notifyObserver
+}
+interface Observer{
+    + {abstract}update():void;
+}
+
+abstract class Enemy{
+    + {abstract}Enemy(int locationX, int locationY, int speedX, int speedY,int hp);
+    + update():void;
+}
+class MobEnemy {
+    + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp):void
+    + shoot():List<BaseBullet>
+    + update():void;
+}
+class EliteEnemy{
+    - direction:int
+
+    + EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp):void
+    + getDirection():int
+    + shoot():List<BaseBullet>
+    + update():void;
+}
+class ElitePlus{
+    - direction:int
+
+    + ElitePlus(int locationX, int locationY, int speedX, int speedY, int hp):void
+    + getDirection():int
+    + shoot():List<BaseBullet>
+    + update():void;
+}
+
+class BossEnemy{
+    - direction:int
+
+    + BossEnemy(int locationX, int locationY, int speedX, int speedY, int hp):void
+    + getDirection():int
+    + shoot():List<BaseBullet>
+    + update():void;
+}
+Enemy <|.u. MobEnemy
+Enemy <|.. EliteEnemy
+Enemy <|.. ElitePlus
+Enemy <|.r. BossEnemy
+
+class EnemyBullet {
+    + EnemyBullet(int locationX, int locationY,int speedX, int speedY, int power)
+    + update():void
+}
+
+Observer<|.r.EnemyBullet
+Observer<|..Enemy
+Game ..>BombEquipment
+BombEquipment o-->Observer
+@enduml

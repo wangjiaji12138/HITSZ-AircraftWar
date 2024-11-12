@@ -1,0 +1,61 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class AbstractAircraft{
+    - shootStrategy:Strategy;
+    + setShootStrategy(Strategy shootStrategy):void;
+    + {abstract} executeShootStrategy(int direction,int locationX,int locationY):void;
+    + {abstract} shoot():List<BaseBullet>
+}
+
+interface ShootStrategy{
+    + executeShootStrategy(int direction,int locationX,int locationY,int speedY,int power);
+}
+
+class EnemyStraightShoot{
+    + executeShootStrategy(int direction,int locationX,int locationY,int speedY,int power):void;
+}
+
+class EnemyScatterShoot{
+    + executeShootStrategy(int directionint locationX,int locationY,int speedY,int power):void;
+}
+
+class EnemyCircleShoot{
+    + executeShootStrategy(Sint direction,int locationX,int locationY,int speedY,int power):void;
+}
+
+class HeroStraightShoot{
+    + executeShootStrategy(int direction,int locationX,int locationY,int speedY,int power):void;
+}
+
+class HeroScatterShoot{
+    + executeShootStrategy(int directionint locationX,int locationY,int speedY,int power):void;
+}
+
+class HeroCircleShoot{
+    + executeShootStrategy(Sint direction,int locationX,int locationY,int speedY,int power):void;
+}
+
+class Aircraft{
+    + shoot()：List<BaseBullet>;
+}
+note top of Aircraft
+    一般飞机类统称
+end note
+
+ShootStrategy <|.. HeroStraightShoot
+ShootStrategy <|.. HeroScatterShoot
+ShootStrategy <|.. HeroCircleShoot
+ShootStrategy <|.. EnemyStraightShoot
+ShootStrategy <|.. EnemyScatterShoot
+ShootStrategy <|.. EnemyCircleShoot
+AbstractAircraft o--> ShootStrategy
+Aircraft ..> HeroStraightShoot
+Aircraft ..> HeroScatterShoot
+Aircraft ..> HeroCircleShoot
+Aircraft ..> EnemyStraightShoot
+Aircraft ..> EnemyScatterShoot
+Aircraft ..> EnemyCircleShoot
+Aircraft --|> AbstractAircraft
+
+@enduml
